@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>VC Registration</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9"
+      crossorigin="anonymous"
+    />
+  </head>
+  <style>
+    body {
+      background-color: #ede1d2;
+    }
+    .modal-header {
+      align-items: center;
+      margin-left: 350px;
+      margin-bottom: 20px;
+    }
+    form {
+      color: #b79061;
+      border-radius: 10px;
+      border: solid 2px #b79061;
+      box-shadow: 2px 8px 8px #b79061;
+      margin-left: 170px;
+      margin-top: 100px;
+      margin-bottom: 200px;
+      width: 1000px;
+      padding: 50px;
+    }
+
+    label {
+      font-size: larger;
+      color: #b79061;
+      margin-bottom: 10px;
+    }
+    input,
+    select {
+      height: 50px;
+    }
+    #submit {
+      border-color: #b79061;
+    }
+    #submit:hover {
+      background-color: #b79061;
+      color: white;
+    }
+  </style>
+  <body>
+    <div class="col-md-8 order-md-1">
+      <form class="needs-validation" novalidate="">
+        <div class="modal-header p-5 pb-4 border-bottom-0">
+          <h1 class="fw-bold mb-0 fs-2">Sign up</h1>
+        </div>
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label for="firstName">First name</label>
+            <input
+              type="text"
+              class="form-control"
+              id="firstName"
+              placeholder=""
+              value=""
+              required=""
+            />
+            <div class="invalid-feedback">Valid first name is required.</div>
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="lastName">Last name</label>
+            <input
+              type="text"
+              class="form-control"
+              id="lastName"
+              placeholder=""
+              value=""
+              required=""
+            />
+            <div class="invalid-feedback">Valid last name is required.</div>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="username">Venture Capitalist Name</label>
+          <div class="input-group">
+            <div class="input-group-prepend"></div>
+            <input type="text" class="form-control" id="username" required="" />
+            <div class="invalid-feedback" style="width: 100%">
+              Your username is required.
+            </div>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="email">Email</label>
+          <input
+            type="email"
+            class="form-control"
+            id="email"
+            placeholder="you@example.com"
+          />
+          <div class="invalid-feedback">
+            Please enter a valid email address for shipping updates.
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="address">Address</label>
+          <input
+            type="text"
+            class="form-control"
+            id="address"
+            placeholder="1234 Main St"
+            required=""
+          />
+          <div class="invalid-feedback">
+            Please enter your shipping address.
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-5 mb-3">
+            <label for="country">Country</label>
+            <select
+              class="custom-select d-block w-100"
+              id="country"
+              required=""
+            >
+              <option value="">India</option>
+              <option>United States</option>
+            </select>
+            <div class="invalid-feedback">Please select a valid country.</div>
+          </div>
+          <div class="col-md-4 mb-3">
+            <label for="state">State</label>
+            <select class="custom-select d-block w-100" id="state" required="">
+              <option value="">Tamil Nadu</option>
+              <option>Kerala</option>
+            </select>
+            <div class="invalid-feedback">Please provide a valid state.</div>
+          </div>
+          <div class="col-md-3 mb-3">
+            <label for="zip">Pincode</label>
+            <input
+              type="text"
+              class="form-control"
+              id="zip"
+              placeholder=""
+              required=""
+            />
+            <div class="invalid-feedback">Zip code required.</div>
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="pancard">Pan Card Number</label>
+          <input
+            type="text"
+            class="form-control"
+            id="pan"
+            placeholder="ABCTY12345D"
+          />
+        </div>
+        <div class="mb-3">
+          <label for="BusinessName">Business Name</label>
+          <input
+            type="text"
+            class="form-control"
+            id="BusinessName"
+            placeholder="Name of Company or Startup"
+          />
+        </div>
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label for="DOC">Date of Commencement</label>
+            <input
+              type="date"
+              class="form-control"
+              id="CommDate"
+              placeholder=""
+              value=""
+              required=""
+            />
+            <div class="invalid-feedback">Valid first name is required.</div>
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="businessType">Main Business Activity</label>
+            <select class="custom-select d-block w-100" id="Btype" required="">
+              <option value="">Product Based</option>
+              <option>Service Based</option>
+            </select>
+            <div class="invalid-feedback">Valid last name is required.</div>
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="password">Create Password</label>
+          <input
+            type="password"
+            class="form-control"
+            id="password"
+            placeholder="Minimum : 6 characters, includes(digits,letters,symbols)"
+          />
+        </div>
+        <div class="mb-3">
+          <label for="confirm password">Re-enter Password</label>
+          <input type="password" class="form-control" id="psd1" />
+        </div>
+        <button
+          id="submit"
+          class="w-100 mb-2 btn btn-lg rounded-3"
+          type="submit"
+          value="register"
+        >
+          Sign up
+        </button>
+      </form>
+    </div>
+  </body>
+  <script
+    src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+    integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+    crossorigin="anonymous"
+  ></script>
+  <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js"
+    integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa"
+    crossorigin="anonymous"
+  ></script>
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.2.0/firebase-app.js";
+    import {
+      getAuth,
+      createUserWithEmailAndPassword,
+      signInWithEmailAndPassword,
+      signOut,
+    } from "https://www.gstatic.com/firebasejs/10.2.0/firebase-auth.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyC97kSBt3J96hDa-0iSXmmCFdMsHglQ94M",
+      authDomain: "cc11-9e49d.firebaseapp.com",
+      projectId: "cc11-9e49d",
+      storageBucket: "cc11-9e49d.appspot.com",
+      messagingSenderId: "332306608188",
+      appId: "1:332306608188:web:ec052203f53dd40be25339",
+      measurementId: "G-F60PL1P7FK",
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+
+    const auth = getAuth();
+
+    document.querySelector("#submit").addEventListener("click", (e) => {
+      e.preventDefault();
+
+      var email = document.getElementById("email").value;
+      var password = document.getElementById("password").value;
+      var fname = document.getElementById("firstName").value;
+      var lname = document.getElementById("lastName").value;
+      var userName = document.getElementById("username").value;
+      var address = document.getElementById("address").value;
+      var doc = document.getElementById("CommDate").value;
+      var pan = document.getElementById("pan").value;
+
+      var user_data = {
+        user: userName,
+        name: fname + lname,
+        email: email,
+        address: address,
+        doc: doc,
+        pan: pan,
+      };
+
+      console.log(user_data);
+
+      createUserWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+          // Signed in
+          const user = userCredential.user;
+          alert("user created");
+          // ...
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+
+          console.log(errorCode, errorMessage);
+          // ..
+        });
+    });
+  </script>
+</html>
+
+<!-- address
+: 
+"Gyan Apartments, Chennai - 600017"
+doc
+: 
+"2004-03-17"
+email
+: 
+"kgokulpriyan@gmail.com"
+name
+: 
+"GokulpriyanKarthikeyan"
+pan
+: 
+"ABCTY1234D"
+user
+: 
+"gokyy" -->

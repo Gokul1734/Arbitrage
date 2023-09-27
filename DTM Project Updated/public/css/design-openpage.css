@@ -1,0 +1,83 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+
+body {
+  background-image: linear-gradient(
+    to bottom,
+    #fed7a5,
+    #e7ba8e,
+    #cf9d79,
+    #b78165,
+    #9e6752
+  );
+  height: auto;
+  width: auto;
+  padding: auto;
+}
+
+h1 {
+  text-align: center;
+  margin-top: 100px;
+  font-family: "Poppins", sans-serif;
+  font-size: 100px;
+  letter-spacing: normal;
+  color: #fff;
+  text-shadow: -6px 4px 8px #9e6752;
+}
+
+.menubar div {
+  margin-left: 150px;
+  padding-top: 10px;
+}
+
+.menubar a {
+  text-decoration: none;
+  align-items: end;
+  margin-left: 110px;
+  color: #b79061;
+}
+.triblock {
+  position: relative;
+  display: flex;
+  padding: 2px;
+  margin: auto;
+  text-align: center;
+  width: 50%;
+  margin-left: 120px;
+}
+
+.triblock div {
+  padding: 120px;
+  border-left: 130px;
+  border-radius: 2%;
+  margin: 30px;
+  background-color: #fff;
+  box-shadow: 5px 10px 8px #b78165;
+  height: 30px;
+}
+
+.triblock div span {
+  align-items: start;
+}
+
+.triblock div a {
+  margin-top: 100px;
+  left: 10px;
+}
+
+.triblock div:hover {
+  color: #73766a;
+}
+
+footer {
+  display: flex;
+  padding-top: 200px;
+}
+
+footer div {
+  padding-left: 100px;
+  padding-right: 100px;
+}
+
+.menubar a:hover {
+  color: blueviolet;
+}
