@@ -16,7 +16,6 @@
     <script src="https://www.gstatic.com/firebasejs/8.9.0/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.9.0/firebase-firestore.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.9.0/firebase-analytics.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.9.0/firebase-database.js"></script>
   </head>
   <style>
     body {
@@ -95,7 +94,14 @@
           >By clicking Sign up, you agree to the terms of use.</small
         >
         <hr class="my-4" />
-        
+        <button
+          id="btn"
+          class="w-100 py-2 mb-2 btn btn-outline rounded-3"
+          type="button"
+          onclick="window.location.href = 'register_s.html';"
+        >
+          Sign up
+        </button>
       </form>
     </div>
   </body>
