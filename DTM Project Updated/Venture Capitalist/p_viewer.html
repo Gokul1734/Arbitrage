@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+    integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+    crossorigin="anonymous"
+  />
+  <script src="https://www.gstatic.com/firebasejs/8.9.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.9.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.9.0/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.9.0/firebase-database.js"></script>
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+    <script src="https://www.gstatic.com/firebasejs/8.9.0/firebase-analytics.js"></script>
+  <style>
+    body {
+      padding: 50px;
+      background-color: blanchedalmond;
+    }
+    #card {
+      height: 400px;
+      width: auto;
+      border-radius: 10px;
+      background-color: white;
+    }
+
+    #card h1 {
+      margin-left: 20px;
+    }
+
+    #card p {
+      margin-left: 20px;
+      margin-top: 20px;
+      width: 600px;
+      height: 150px;
+    }
+    #card button {
+      position: absolute;
+      margin-left: 20px;
+      margin-top: 20px;
+    }
+
+    #card2 {
+      padding-top: 30px;
+    }
+    #card2 div div {
+      background-color: white;
+    }
+    #op li {
+     width: 120px;
+     
+    }
+    #op ::-webkit-scrollbar {
+     display: none;
+    }
+  </style>
+  <body>
+    <div id="card" class="container-fluid py-5">
+      <h1 id="title" class="display-5 fw-bold">Custom jumbotron</h1>
+      <p class="col-md-8 fs-4">Budget : ₹ <span id="budget">10000</span></p>
+      <button onclick="request()" class="btn btn-primary btn-lg" type="button">
+        Bid On Project
+      </button>
+    </div>
+
+    <br>
+
+    <div class="row g-5">
+      <div class="col-md-6">
+        <h3 class="pb-4 mb-4 fst-italic border-bottom">Project Details</h3>
+
+        <article class="blog-post">
+          <h2 class="display-5 link-body-emphasis mb-1">
+            Type of Project : <span id="type">type</span>
+          </h2>
+          <p style="margin: 10px" class="blog-post-meta">
+            Published on : <span id="date">date</span>
+          </p>
+
+          <hr />
+          <h2>Objective :</h2>
+          <div
+            id="desc"
+            style="
+              border: 1px solid black;
+              padding: 10px;
+              margin: 20px;
+              height: auto;
+              width: auto;
+            "
+          >
+            September 6, 2023 - Analyst Report: Paramount GlobalParamount is a
+            worldwide media entertainment company. Remerged in December 2019
+            from sister companies Viacom and CBS, the company produces and
+            distributes television and cable programming over its networks,
+            including the flagship CBS broadcast network; a stable of basic
+            cable channels, including MTV Networks, VH1, Nickelodeon, Country
+            Music Television, Comedy Central and BET; a network of locally owned
+            and affiliated CBS broadcast television stations; and various
+            digital streaming video platforms, including
+          </div>
+          <br />
+          <ul>
+            <li>
+              Project Budget Limit : ₹<span id="l-limit"> 10000</span> - ₹
+              <span id="u-limit">20000</span>
+            </li>
+            <li>
+              Stackholders :
+              <ul>
+                <li id="stake1">Venture Capitalist</li>
+                <li id="stake2">Conceptualist</li>
+                <li id="stake3">Startups</li>
+                <li id="stake4">Insurance Providers</li>
+                <li id="stake5">Business Entities</li>
+              </ul>
+            </li>
+          </ul>
+          
+
+      </div>
+
+      <div class="col-md-6">
+        <div class="position-sticky" style="top: 2rem">
+          <div class="p-4 mb-3 bg-body-tertiary rounded">
+            <h4 class="fst-italic">About</h4>
+            <ul>
+             <li>Project Owner : <span id="name">ABC</span></li>
+             <li>Location : <span id="location">Chennai</span></li>
+             <li>Phone Number  : <span id="pno">1234567890</span></li>
+             <li>Email : <span id="email">abc@gmail.com</span></li>
+             <li>Rating : <span id="c_rate">4.5</span></li>
+            </ul>
+          </div>  
+        </div>
+      </div>
+      <div>
+       <h4 class="fst-italic">Other Projects by owner</h4>
+       <ul style="display: flex;overflow-x:scroll;gap: 200px;" id="op" class="list-unstyled">
+       </ul>
+     </div>
+    </div>
+    <nav class="blog-pagination" aria-label="Pagination">
+     <a class="btn btn-outline-primary rounded-pill" href="#">Go up</a>
+
+   </nav>
+  </body>
+  <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+    crossorigin="anonymous"
+  ></script>
+  <script>
+
+      const firebaseConfig = {
+        apiKey: "AIzaSyBQVU8pKFxdm9SWLfwwGVBzcizYsmzYsyY",
+        authDomain: "arbitrage-7ed19.firebaseapp.com",
+        databaseURL: "https://arbitrage-7ed19-default-rtdb.firebaseio.com",
+        projectId: "arbitrage-7ed19",
+        storageBucket: "arbitrage-7ed19.appspot.com",
+        messagingSenderId: "702342080108",
+        appId: "1:702342080108:web:5fc888e36610f92c785a49",
+        measurementId: "G-R2WKF15R9W",
+    };
+
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    firebase.analytics();
+    const auth = firebase.auth();
+    const db = firebase.firestore();
+    var cbase = firebase.database().ref("Conceptualist/");
+
+    
+    var obj = JSON.parse(sessionStorage.getItem("project"));
+    var user = JSON.parse(sessionStorage.getItem("user"));
+    var vc = JSON.parse(sessionStorage.getItem("vc"));
+    
+    document.title = obj.title;
+    document.getElementById("title").textContent = obj.title;
+    document.getElementById("desc").textContent = obj.objective;
+    document.getElementById("type").textContent = obj.type;
+    document.getElementById("date").textContent = obj.date;
+    document.getElementById("name").textContent = user.name;
+    document.getElementById("email").textContent = user.email;
+    document.getElementById("pno").textContent = user.pno;
+    document.getElementById("location").textContent = user.city; 
+    document.getElementById("budget").textContent = obj.budget; 
+    function request() {
+     var cbase = firebase.database().ref("Conceptualist/"+user.id+"/projects/" + obj.title +"/bidreq/"+vc.name);
+     cbase.update(vc)
+
+    }
+    // console.log(user.name);
+
+    firebase.database().ref("Conceptualist/").once("value",(snapshot)=> {
+     var data = snapshot.val();
+     for (let i in data) {
+      if (user.name == data[i].name) {
+       for (let j in data[i].projects){
+        if (data[i].projects[j].title != obj.title) {
+          var o = data[i].projects[j];
+          var t = data[i].projects[j].title;
+          var date = data[i].projects[j].date;
+
+          const other = `
+          <img style="width:300px;height:200px" src="${sessionStorage.getItem(
+                        `photo-${t}`
+                      )}"></img>
+                <a
+                  class="d-flex flex-column flex-lg-row gap-3 align-items-start align-items-lg-center py-3 link-body-emphasis text-decoration-none border-top"
+                  href="#"
+                >
+                  
+                  <div class="col-lg-8">
+                    <h6 class="mb-0">${t}</h6>
+                    
+                    <small class="text-body-secondary">${date}</small>
+                    <br>
+                    <button
+                              style="width:100px;background-color: #ede1d2;color:#b79061;border-color :#b79061"
+                              onclick="viewer('${o.title}','${o.objective}','${o.type}','${o.budget}','${o.date}')"
+                              type="button"
+                              class="btn btn-sm btn-outline-danger"
+                            >
+                              View Project
+                            </button>
+                  </div>
+                </a>`
+
+              var card = document.createElement("li");
+              document.getElementById("op").appendChild(card);
+              card.innerHTML = other;
+       }
+       // console.log(data[i].projects);
+      }}
+     }
+    })
+
+    function viewer(title, objective, type, budget, date) {
+      var p_data = {
+        title: title,
+        objective: objective,
+        type: type,
+        budget: budget,
+        date: date,
+      };
+      console.log(p_data);
+      cbase.once("value", function (snapshot) {
+        var data = snapshot.val();
+        for (let i in data) {
+          for (let j in data[i]["projects"]) {
+            if (p_data.title == data[i]["projects"][j].title) {
+              console.log(data[i]);
+              // JSON.stringify(sessionStorage.setItem("user", data[i]));
+              var user = {
+                name: data[i].name,
+                email: data[i].email,
+                pno: data[i].pno,
+                city: data[i].city,
+                id: data[i].id,
+              };
+            }
+          }
+          // console.log(user);
+          // if (data[i].projects)
+          // sessionStorage.setItem("user", JSON.stringify(data[i]));
+          // }
+        }
+        // console.log(user.email);
+        // console.log(user);
+        sessionStorage.setItem("user", JSON.stringify(user));
+      });
+
+      // var v = firebase.database().ref("ventures/");
+
+      // console.log(p_data);
+      sessionStorage.setItem("project", JSON.stringify(p_data));
+      setTimeout((e) => {
+        window.location.href = "p_viewer.html";
+      }, 3000);
+    }
+
+    
+
+    // sessionStorage.removeItem("user1");
+
+    
+  </script>
+</html>

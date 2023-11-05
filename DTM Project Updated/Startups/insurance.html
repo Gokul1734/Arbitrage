@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login Page with Advanced Effects</title>
+    <script src="https://www.gstatic.com/firebasejs/8.9.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.9.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.9.0/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.9.0/firebase-database.js"></script>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+    <script src="https://www.gstatic.com/firebasejs/8.9.0/firebase-analytics.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9"
+      crossorigin="anonymous"
+    />
+
+    <style>
+      body {
+        background-color: #ede1d2;
+      }
+      h1 {
+        margin-left: -100px;
+      }
+      .modal-header {
+        align-items: center;
+        margin-left: 350px;
+        margin-bottom: 20px;
+      }
+      form {
+        color: #b79061;
+        border-radius: 10px;
+        border: solid 2px #b79061;
+        box-shadow: 2px 8px 8px #b79061;
+        margin-left: 250px;
+        margin-top: 100px;
+        margin-bottom: 200px;
+        width: 1000px;
+        padding: 50px;
+      }
+
+      label {
+        font-size: larger;
+        color: #b79061;
+        margin-bottom: 10px;
+      }
+      input,
+      select {
+        height: 50px;
+      }
+      #submit {
+        margin-top: 50px;
+        border-color: #b79061;
+      }
+      #submit:hover {
+        background-color: #b79061;
+        color: white;
+      }
+      #log {
+        border-color: #b79061;
+      }
+      #log:hover {
+        background-color: #b79061;
+        color: white;
+      }
+    </style>
+
+    <!-- <style>
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+        background-color: #ffffff;
+        width: auto;
+        height: auto;
+      }
+      .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+      .card {
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        width: 700px;
+        max-width: 90%;
+        margin-bottom: 100px;
+        margin-top: 500px;
+      }
+      .card-header {
+        background-color: #333;
+        color: #fff;
+        padding: 15px;
+        text-align: center;
+      }
+      .card-body {
+        padding: 50px;
+      }
+      .input-group {
+        margin-bottom: 15px;
+        margin-right: 15px;
+      }
+      .input-group label {
+        display: block;
+        margin-bottom: 10px;
+      }
+      .input-group input {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+      }
+      .input-group input:focus {
+        outline: none;
+        border-color: #6c63ff;
+      }
+      .btn {
+        background-color: #6c63ff;
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        padding: 10px 20px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+      .btn:hover {
+        background-color: #524ed0;
+
+      
+      }
+      #aadhaar{
+       margin-bottom: 10px;
+      }
+      #password{
+       margin-bottom: 10px;
+      }
+
+    </style> -->
+  </head>
+  <body>
+    <div id="register" class="col-md-8 order-md-1">
+      <form class="needs-validation" novalidate="">
+        <div class="modal-header p-5 pb-4 border-bottom-0">
+          <h1 class="fw-bold mb-0 fs-2">Insurance Details</h1>
+        </div>
+        <div class="mb-3">
+          <label for="firstName">Bank name</label>
+          <input
+            type="text"
+            class="form-control"
+            id="fname"
+            placeholder=""
+            value=""
+            required=""
+          />
+          <div class="invalid-feedback">Valid first name is required.</div>
+        </div>
+
+        <div class="mb-3">
+          <label for="lastName">Insurance Provider Name</label>
+          <input
+            type="text"
+            class="form-control"
+            id="lastName"
+            placeholder=""
+            value=""
+            required=""
+          />
+          <div class="invalid-feedback">Valid last name is required.</div>
+        </div>
+
+        <div class="mb-3">
+          <label for="email">Email</label>
+          <input type="email" class="form-control" id="email" />
+        </div>
+
+        <div class="mb-3">
+          <label for="pno">Phone Number</label>
+          <input type="text" class="form-control" id="pno" />
+        </div>
+
+        <div class="mb-3">
+          <label for="address">City</label>
+          <input
+            type="text"
+            class="form-control"
+            id="city"
+            placeholder=""
+            required=""
+          />
+          <div class="invalid-feedback">
+            Please enter your shipping address.
+          </div>
+        </div>
+        <button
+          id="submit"
+          class="w-100 mb-2 btn btn-lg rounded-3"
+          type="submit"
+          value="register"
+        >
+          Submit
+        </button>
+      </form>
+    </div>
+  </body>
+  <script
+    src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+    integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+    crossorigin="anonymous"
+  ></script>
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyBQVU8pKFxdm9SWLfwwGVBzcizYsmzYsyY",
+      authDomain: "arbitrage-7ed19.firebaseapp.com",
+      databaseURL: "https://arbitrage-7ed19-default-rtdb.firebaseio.com",
+      projectId: "arbitrage-7ed19",
+      storageBucket: "arbitrage-7ed19.appspot.com",
+      messagingSenderId: "702342080108",
+      appId: "1:702342080108:web:5fc888e36610f92c785a49",
+      measurementId: "G-R2WKF15R9W",
+    };
+    firebase.initializeApp(firebaseConfig);
+    // firebase.analytics();
+    const auth = firebase.auth();
+    // const db = firebase.firestore();
+
+    // firebase.analytics();
+
+    var i = firebase.database().ref("Insurance/");
+
+    i.once("value", (snapshot) => {
+      var data = snapshot.val();
+      if (data[i]) {
+        console.log(data[i]);
+      }
+    });
+
+    // Initialize Firebase
+
+    document.querySelector("#submit").addEventListener("click", (e) => {
+      e.preventDefault();
+      data = {
+        bank: document.getElementById("fname").value,
+        pname: document.getElementById("lastName").value,
+        email: document.getElementById("email").value,
+        pno: document.getElementById("pno").value,
+        city: document.getElementById("city").value,
+        vc: JSON.parse(sessionStorage.getItem("startup")).venture.vc,
+      };
+      console.log(data);
+      firebase
+        .database()
+        .ref()
+        .child("Insurance/" + document.getElementById("fname").value)
+        .set(data);
+    });
+  </script>
+  <!-- <script src="register.js"></script> -->
+</html>

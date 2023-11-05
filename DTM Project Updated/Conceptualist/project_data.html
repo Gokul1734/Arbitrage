@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login Page with Advanced Effects</title>
+    <script src="https://www.gstatic.com/firebasejs/8.9.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.9.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.9.0/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.9.0/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.9.0/firebase-storage.js"></script>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+    <script src="https://www.gstatic.com/firebasejs/8.9.0/firebase-analytics.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9"
+      crossorigin="anonymous"
+    />
+
+    <style>
+      body {
+        background-color: #ede1d2;
+      }
+      h1 {
+        margin-left: -100px;
+      }
+      .modal-header {
+        align-items: center;
+        margin-left: 350px;
+        margin-bottom: 20px;
+      }
+      form {
+        color: #b79061;
+        border-radius: 10px;
+        border: solid 2px #b79061;
+        box-shadow: 2px 8px 8px #b79061;
+        margin-left: 250px;
+        margin-top: 100px;
+        margin-bottom: 200px;
+        width: 1000px;
+        padding: 50px;
+      }
+
+      label {
+        font-size: larger;
+        color: #b79061;
+        margin-bottom: 10px;
+      }
+      input,
+      select {
+        height: 50px;
+      }
+      #submit {
+        margin-top: 50px;
+        border-color: #b79061;
+      }
+      #submit:hover {
+        background-color: #b79061;
+        color: white;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="col-md-8 order-md-1">
+      <form class="needs-validation" novalidate="">
+        <div class="modal-header p-5 pb-4 border-bottom-0">
+          <h1 class="fw-bold mb-0 fs-2">Project Details</h1>
+        </div>
+        <div class="mb-3">
+          <label for="firstName">Project Title</label>
+          <input
+            type="text"
+            class="form-control"
+            id="title"
+            placeholder=""
+            value=""
+            required=""
+          />
+          <div class="invalid-feedback">Valid Title is required.</div>
+        </div>
+
+        <label for="country">Type of Project</label>
+        <select class="custom-select d-block w-100" id="type" required="">
+          <option value="">Agricultural</option>
+          <option>Medical</option>
+          <option>Automobile</option>
+          <option>Resource</option>
+          <option>Finance</option>
+        </select>
+
+        <div class="mb-3">
+          <label for="pno">Budget</label>
+          <input type="number" class="form-control" id="budget" />
+        </div>
+
+        <div class="mb-3">
+          <label for="address">Objective</label>
+          <textarea
+            style="height: 200px"
+            type="text"
+            class="form-control"
+            id="desc"
+            placeholder=""
+            required=""
+          ></textarea>
+        </div>
+        <div class="mb-3">
+          <label for="password">Upload Cover Photo</label>
+          <input
+            style="height: auto"
+            type="file"
+            accept="image/*"
+            class="form-control"
+            id="photo"
+          />
+        </div>
+        <button
+          id="create"
+          class="w-100 mb-2 btn btn-lg rounded-3"
+          type="submit"
+          value="register"
+        >
+          Create Project
+        </button>
+      </form>
+    </div>
+  </body>
+  <script
+    src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+    integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+    crossorigin="anonymous"
+  ></script>
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyBQVU8pKFxdm9SWLfwwGVBzcizYsmzYsyY",
+      authDomain: "arbitrage-7ed19.firebaseapp.com",
+      databaseURL: "https://arbitrage-7ed19-default-rtdb.firebaseio.com",
+      projectId: "arbitrage-7ed19",
+      storageBucket: "arbitrage-7ed19.appspot.com",
+      messagingSenderId: "702342080108",
+      appId: "1:702342080108:web:5fc888e36610f92c785a49",
+      measurementId: "G-R2WKF15R9W",
+    };
+
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    firebase.analytics();
+    const auth = firebase.auth();
+    const db = firebase.firestore();
+  </script>
+
+  <script src="project.js"></script>
+</html>

@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "firebase": "^10.4.0",
+    "firebaseui": "^6.1.0",
+    "sweetalert": "^2.1.2",
+    "sweetalert2": "^11.7.28"
+  }
+}

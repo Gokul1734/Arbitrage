@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+    integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+    crossorigin="anonymous"
+  />
+  <script src="https://www.gstatic.com/firebasejs/8.9.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.9.0/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.9.0/firebase-firestore.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.9.0/firebase-database.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.9.0/firebase-analytics.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <style>
+    body {
+      padding: 50px;
+      background-color: blanchedalmond;
+    }
+    #card {
+      height: 700vh;
+      width: auto;
+      border-radius: 10px;
+      background-color: #b79061;
+    }
+
+    #card h1 {
+      margin-left: 20px;
+    }
+
+    #card p {
+      margin-left: 20px;
+      margin-top: 20px;
+      width: 600px;
+      height: 150px;
+    }
+    #card button {
+      position: absolute;
+      margin-left: 20px;
+      margin-top: 20px;
+    }
+
+    #card2 {
+      padding-top: 30px;
+    }
+    #card2 div div {
+      background-color: white;
+    }
+    #page {
+      margin: 40px;
+      width: 1360px;
+      height: 100vh;
+      border: 70px solid #b79061;
+      border-radius: 10px;
+    }
+    #inv {
+      height: 70px;
+    }
+    form.form-container {
+      width: 300px;
+      height: 200px;
+      padding: 20px;
+      background-color: #b79061;
+      border-radius: 10px;
+    }
+    #myform :hover {
+      /* scale: 20px; */
+      background-color: aqua;
+      transition: 2s;
+    }
+  </style>
+  <body>
+    <h1 id="title" class="display-5 fw-bold">Custom jumbotron</h1>
+    <div class="row g-5">
+      <div class="col-md-6">
+        <div style="display: flex; gap: 400px; width: 1400px">
+          <ul style="margin-left: 10px">
+            <li>Venture Owner : <span id="name">New Ventures</span></li>
+            <li>Location : <span id="location">Chennai</span></li>
+            <li>Email : <span id="email">v13@gmail.com</span></li>
+            <li>Expected Projects : <span id="type">Agricultural</span></li>
+          </ul>
+          <div style="display: flex; gap: 50px">
+            <div
+              style="
+                display: none;
+                background-color: bisque;
+                width: 300px;
+                margin-left: 250px;
+              "
+              class="form-popup"
+              id="myForm"
+            >
+              <form action="/action_page.php" class="form-container">
+                <label for="email"><b>Enter Project Name</b></label>
+                <input
+                  type="text"
+                  placeholder="Enter Project Name"
+                  name="email"
+                  id="pn"
+                  required
+                />
+
+                <label for="psw"><b>Request Message</b></label>
+                <input
+                  type="text"
+                  placeholder="Enter Message"
+                  name="psw"
+                  id="msg"
+                  required
+                />
+                <br />
+                <button
+                  style="background-color: white; padding: 2px; margin-top: 5px"
+                  type="button"
+                  class="btn cancel"
+                  onclick="request()"
+                >
+                  Request
+                </button>
+              </form>
+            </div>
+            <button
+              style="margin-top: -20px; background-color: #b79061"
+              id="inv"
+              class="btn btn-lg"
+              type="button"
+              onclick="openForm()"
+            >
+              Request Investments
+            </button>
+          </div>
+        </div>
+        <iframe id="page" src="../public/loader.html"></iframe>
+      </div>
+    </div>
+  </body>
+  <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+    crossorigin="anonymous"
+  ></script>
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyBQVU8pKFxdm9SWLfwwGVBzcizYsmzYsyY",
+      authDomain: "arbitrage-7ed19.firebaseapp.com",
+      databaseURL: "https://arbitrage-7ed19-default-rtdb.firebaseio.com",
+      projectId: "arbitrage-7ed19",
+      storageBucket: "arbitrage-7ed19.appspot.com",
+      messagingSenderId: "702342080108",
+      appId: "1:702342080108:web:5fc888e36610f92c785a49",
+      measurementId: "G-R2WKF15R9W",
+    };
+
+    function openForm() {
+      document.getElementById("myForm").style.display = "block";
+      document.getElementById("inv").style.position = "fixed";
+    }
+
+    function closeForm() {
+      document.getElementById("myForm").style.display = "none";
+      document.getElementById("inv").style.position = "relative";
+    }
+
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+
+    var vbase = firebase.database().ref("ventures/");
+
+    var obj = JSON.parse(sessionStorage.getItem("vv"));
+    var user = JSON.parse(sessionStorage.getItem("user"));
+    console.log(user);
+
+    vbase.once("value", (snapshot) => {
+      var data = snapshot.val();
+      for (let i in data) {
+        if (obj.email == data[i].email) {
+          console.log(data[i].link);
+          document.getElementById("page").src = data[i].link;
+        }
+      }
+    });
+
+    document.title = obj.name;
+    document.getElementById("title").textContent = obj.vc;
+    // document.getElementById("desc").textContent = obj.objective;
+    document.getElementById("type").textContent = obj.type;
+    // document.getElementById("date").textContent = obj.date;
+    document.getElementById("name").textContent = obj.name;
+    document.getElementById("email").textContent = obj.email;
+    // document.getElementById("pno").textContent = user.pno;
+    // document.getElementById("location").textContent = user.city;
+    // document.getElementById("budget").textContent = obj.budget;
+
+    function request() {
+      document.getElementById("myForm").style.display = "none";
+      document.getElementById("inv").style.position = "relative";
+      var det = {
+        pname: document.getElementById("pn").value,
+        msg: document.getElementById("msg").value,
+      };
+      vbase.child(`${obj.uid}/requests/${det.pname}`).set(det);
+      document.getElementById("inv").textContent = "Requested ✔️";
+    }
+  </script>
+</html>
